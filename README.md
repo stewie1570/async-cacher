@@ -9,6 +9,8 @@ This tool allows you to:
 
  **Usage**
  
-     const result = cache.get({ dataSource, key: "key 1" });
+```jsx
+const result = cache.get({ dataSource, key: "key 1" });
+```
 
 *(In this example, dataSource is a function that returns a promise of the result)*
