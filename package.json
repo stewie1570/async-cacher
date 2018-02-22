@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage",
     "tdd": "jest --watch",
-    "build": "webpack"
+    "build": "npm run test && webpack"
   },
   "keywords": [
     "async",
