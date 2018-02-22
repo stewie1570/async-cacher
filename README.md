@@ -1,5 +1,8 @@
 # async-cacher
 
+[![Build](https://travis-ci.org/stewie1570/async-cacher.svg)](https://travis-ci.org/stewie1570/async-cacher)
+[![npm version](https://badge.fury.io/js/async-cacher.svg)](https://badge.fury.io/js/async-cacher)
+
 You can use this small tool to cache any request for data.
 
 This tool allows you to:
