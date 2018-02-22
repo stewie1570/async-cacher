@@ -13,7 +13,8 @@ This tool allows you to:
  **Usage**
  
 ```jsx
-const result = cache.get({ dataSource, key: "key 1" });
+const result1 = await cache.get({ dataSource, key: "key 1" }); //The default TTL is 1 minute
+const result2 = await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })
 ```
 
 *(In this example, dataSource is a function that returns a promise of the result)*
