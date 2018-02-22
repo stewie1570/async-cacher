@@ -14,7 +14,7 @@ export class Cache {
         var getFromDataSource = () => {
             var getData = dataSource();
             this.data[cacheKey] = {
-                data: getData,
+                getData,
                 expiration: adjust({ time: this.timeProvider(), milliseconds: millisecondsToLive || 60000 })
             };
 
@@ -22,6 +22,6 @@ export class Cache {
         };
         const hasCachedResult = cachedResult && this.timeProvider() < cachedResult.expiration;
         
-        return hasCachedResult ? Promise.resolve(cachedResult.data) : getFromDataSource();
+        return hasCachedResult ? Promise.resolve(cachedResult.getData) : getFromDataSource();
     }
 }
