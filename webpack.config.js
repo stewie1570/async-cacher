@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: __dirname,
         filename: "./build/index.js",
-        library: 'async-cache',
+        library: 'async-cacher',
         libraryTarget: 'umd'
     },
     module: {
