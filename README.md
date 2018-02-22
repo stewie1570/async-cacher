@@ -1,4 +1,4 @@
-# async-cache
+# async-cacher
 
 You can use this small tool to cache any request for data.
 
