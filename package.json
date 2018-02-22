@@ -4,7 +4,7 @@
   "description": "Cache async data sources.",
   "main": "build/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "tdd": "jest --watch",
     "build": "webpack"
   },
