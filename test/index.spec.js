@@ -3,7 +3,7 @@ import { Cache } from '../src/index'
 describe("Cache", () => {
     it("should return data from the source", async () => {
         var dataSource = () => Promise.resolve("the data");
-        expect(await new Cache({ timeProvider: () => new Date() }).get({ dataSource })).toBe("the data");
+        expect(await new Cache().get({ dataSource })).toBe("the data");
     });
 
     it("should only request once per key", async () => {
@@ -59,7 +59,7 @@ describe("Cache", () => {
 
             return Promise.resolve("the data");
         };
-        var cache = new Cache({ timeProvider: () => new Date() });
+        var cache = new Cache();
 
         const firstResult = cache.get({ dataSource, key: "key 1" });
         const secondResult = cache.get({ dataSource, key: "key 1" });
