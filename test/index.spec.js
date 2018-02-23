@@ -2,7 +2,7 @@ import { Cache } from '../src/index'
 
 describe("Cache", () => {
     it("should return data from the source", async () => {
-        var dataSource = () => Promise.resolve("the data");
+        var dataSource = () => new Promise(resolve => setTimeout(() => resolve("the data"), 1));
         expect(await new Cache().get({ dataSource })).toBe("the data");
     });
 
@@ -11,7 +11,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return Promise.resolve("the data");
+            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
         };
         var cache = new Cache();
 
@@ -25,7 +25,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return Promise.resolve("the data");
+            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
@@ -41,7 +41,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return Promise.resolve("the data");
+            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
@@ -57,7 +57,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return Promise.resolve("the data");
+            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
         };
         var cache = new Cache();
 
