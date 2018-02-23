@@ -22,6 +22,6 @@ export class Cache {
         };
         const hasCachedResult = cachedResult && this.timeProvider() < cachedResult.expiration;
 
-        return hasCachedResult ? Promise.resolve(cachedResult.getData) : getFromDataSource();
+        return hasCachedResult ? cachedResult.getData : getFromDataSource();
     }
 }
