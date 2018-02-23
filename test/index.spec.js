@@ -13,7 +13,7 @@ describe("Cache", () => {
 
             return Promise.resolve("the data");
         };
-        var cache = new Cache({ timeProvider: () => new Date() });
+        var cache = new Cache();
 
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data");
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data");

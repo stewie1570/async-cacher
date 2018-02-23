@@ -1,7 +1,7 @@
 export class Cache {
-    constructor({ timeProvider }) {
+    constructor(config) {
         this.data = [];
-        this.timeProvider = timeProvider;
+        this.timeProvider = (config && config.timeProvider) || (() => new Date());
     }
 
     get({ dataSource, cacheKey, millisecondsToLive }) {
@@ -21,7 +21,7 @@ export class Cache {
             return getData;
         };
         const hasCachedResult = cachedResult && this.timeProvider() < cachedResult.expiration;
-        
+
         return hasCachedResult ? Promise.resolve(cachedResult.getData) : getFromDataSource();
     }
 }
