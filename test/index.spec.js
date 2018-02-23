@@ -1,8 +1,10 @@
 import { Cache } from '../src/index'
 
+const promiseToResolve = theData => new Promise(resolve => setTimeout(() => resolve(theData), 1));
+
 describe("Cache", () => {
     it("should return data from the source", async () => {
-        var dataSource = () => new Promise(resolve => setTimeout(() => resolve("the data"), 1));
+        var dataSource = () => promiseToResolve("the data");
         expect(await new Cache().get({ dataSource })).toBe("the data");
     });
 
@@ -11,7 +13,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
+            return promiseToResolve("the data");
         };
         var cache = new Cache();
 
@@ -25,7 +27,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
+            return promiseToResolve("the data");
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
@@ -41,7 +43,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
+            return promiseToResolve("the data");
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
@@ -57,7 +59,7 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return new Promise(resolve => setTimeout(() => resolve("the data"), 1));
+            return promiseToResolve("the data");
         };
         var cache = new Cache();
 
