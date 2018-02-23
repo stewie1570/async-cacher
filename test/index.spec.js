@@ -27,14 +27,14 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return promiseToResolve("the data");
+            return promiseToResolve(`the data${callCount}`);
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
 
-        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data");
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data1");
         var currentTime = new Date("01/01/2000 12:01 am");
-        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data");
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data2");
         expect(callCount).toBe(2);
     });
 
@@ -43,14 +43,14 @@ describe("Cache", () => {
         var dataSource = () => {
             callCount++;
 
-            return promiseToResolve("the data");
+            return promiseToResolve(`the data${callCount}`);
         };
         var currentTime = new Date("01/01/2000 12:00 am");
         var cache = new Cache({ timeProvider: () => currentTime });
 
-        expect(await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })).toBe("the data");
+        expect(await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })).toBe("the data1");
         var currentTime = new Date("01/01/2000 12:00:01 am");
-        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data");
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data2");
         expect(callCount).toBe(2);
     });
 
