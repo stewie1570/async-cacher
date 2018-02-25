@@ -20,10 +20,10 @@ export class Cache {
 
             return getData;
         };
-        const hasCachedResult = cachedResult
+        const useCachedResult = cachedResult
             && !forceRefresh
             && this.timeProvider() < cachedResult.expiration;
 
-        return hasCachedResult ? cachedResult.getData : getFromDataSource();
+        return useCachedResult ? cachedResult.getData : getFromDataSource();
     }
 }
