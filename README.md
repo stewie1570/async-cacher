@@ -21,3 +21,7 @@ const result1 = await cache.get({ dataSource, key: "key 1" }); //The default TTL
 const result2 = await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })
 ```
 
+You can also force a key to refresh:
+```jsx
+const result1 = await cache.get({ dataSource, key: "key 1", forceRefresh: true })
+```

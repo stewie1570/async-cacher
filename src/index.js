@@ -4,7 +4,7 @@ export class Cache {
         this.timeProvider = (config && config.timeProvider) || (() => new Date());
     }
 
-    get({ dataSource, cacheKey, millisecondsToLive }) {
+    get({ dataSource, cacheKey, millisecondsToLive, forceRefresh }) {
         var cachedResult = this.data[cacheKey];
         var adjust = ({ time, milliseconds }) => {
             var newTime = new Date(time.valueOf());
@@ -20,7 +20,9 @@ export class Cache {
 
             return getData;
         };
-        const hasCachedResult = cachedResult && this.timeProvider() < cachedResult.expiration;
+        const hasCachedResult = cachedResult
+            && !forceRefresh
+            && this.timeProvider() < cachedResult.expiration;
 
         return hasCachedResult ? cachedResult.getData : getFromDataSource();
     }
