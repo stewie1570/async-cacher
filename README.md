@@ -18,10 +18,11 @@ This tool allows for you too:
  
 ```jsx
 const result1 = await cache.get({ dataSource, key: "key 1" }); //The default TTL is 1 minute
-const result2 = await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })
+const result2 = await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 });
 ```
 
-You can also force a key to refresh:
+You can also force a key to refresh via the get request or clear a key so the next request will refresh the cache key.
 ```jsx
-const result1 = await cache.get({ dataSource, key: "key 1", forceRefresh: true })
+const result1 = await cache.get({ dataSource, key: "key 1", forceRefresh: true });
+cache.clear({ key: "key 1" });
 ```

@@ -4,8 +4,8 @@ export class Cache {
         this.timeProvider = (config && config.timeProvider) || (() => new Date());
     }
 
-    get({ dataSource, cacheKey, millisecondsToLive, forceRefresh }) {
-        var cachedResult = this.data[cacheKey];
+    get({ dataSource, key, millisecondsToLive, forceRefresh }) {
+        var cachedResult = this.data[key];
         var adjust = ({ time, milliseconds }) => {
             var newTime = new Date(time.valueOf());
             newTime.setMilliseconds(milliseconds);
@@ -13,7 +13,7 @@ export class Cache {
         };
         var getFromDataSource = () => {
             var getData = dataSource();
-            this.data[cacheKey] = {
+            this.data[key] = {
                 getData,
                 expiration: adjust({ time: this.timeProvider(), milliseconds: millisecondsToLive || 60000 })
             };
@@ -25,5 +25,9 @@ export class Cache {
             && this.timeProvider() < cachedResult.expiration;
 
         return useCachedResult ? cachedResult.getData : getFromDataSource();
+    }
+
+    clear({ key }) {
+        this.data[key] = undefined;
     }
 }

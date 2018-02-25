@@ -22,6 +22,20 @@ describe("Cache", () => {
         expect(callCount).toBe(1);
     });
 
+    it("should request twice (once per key)", async () => {
+        var callCount = 0;
+        var dataSource = () => {
+            callCount++;
+
+            return promiseToResolve(`the data${callCount}`);
+        };
+        var cache = new Cache();
+
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data1");
+        expect(await cache.get({ dataSource, key: "key 2" })).toBe("the data2");
+        expect(callCount).toBe(2);
+    });
+
     it("should allow forcing a key to refresh", async () => {
         var callCount = 0;
         var dataSource = () => {
@@ -33,6 +47,21 @@ describe("Cache", () => {
 
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data1");
         expect(await cache.get({ dataSource, key: "key 1", forceRefresh: true })).toBe("the data2");
+        expect(callCount).toBe(2);
+    });
+
+    it("should allow clearing a key", async () => {
+        var callCount = 0;
+        var dataSource = () => {
+            callCount++;
+
+            return promiseToResolve(`the data${callCount}`);
+        };
+        var cache = new Cache();
+
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data1");
+        cache.clear({ key: "key 1" });
+        expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data2");
         expect(callCount).toBe(2);
     });
 
