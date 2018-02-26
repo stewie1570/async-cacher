@@ -76,7 +76,7 @@ describe("Cache", () => {
         var cache = new Cache({ timeProvider: () => currentTime });
 
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data1");
-        var currentTime = new Date("01/01/2000 12:01 am");
+        currentTime = new Date("01/01/2000 12:01 am");
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data2");
         expect(callCount).toBe(2);
     });
@@ -92,7 +92,7 @@ describe("Cache", () => {
         var cache = new Cache({ timeProvider: () => currentTime });
 
         expect(await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 })).toBe("the data1");
-        var currentTime = new Date("01/01/2000 12:00:01 am");
+        currentTime = new Date("01/01/2000 12:00:01 am");
         expect(await cache.get({ dataSource, key: "key 1" })).toBe("the data2");
         expect(callCount).toBe(2);
     });
@@ -108,8 +108,7 @@ describe("Cache", () => {
 
         const firstResult = cache.get({ dataSource, key: "key 1" });
         const secondResult = cache.get({ dataSource, key: "key 1" });
-        expect(await firstResult).toBe("the data");
-        expect(await secondResult).toBe("the data");
+        expect(await Promise.all([firstResult, secondResult])).toEqual(["the data", "the data"]);
         expect(callCount).toBe(1);
     });
 });
