@@ -32,5 +32,8 @@
   "dependencies": {},
   "files": [
     "build"
-  ]
+  ],
+  "jest": {
+    "testURL": "http://localhost"
+  }
 }
