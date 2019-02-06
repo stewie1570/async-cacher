@@ -11,14 +11,22 @@ export class Cache {
             newTime.setMilliseconds(milliseconds);
             return newTime;
         };
-        var getFromDataSource = () => {
+        var getFromDataSource = async () => {
             var getData = dataSource();
             this.data[key] = {
                 getData,
                 expiration: adjust({ time: this.timeProvider(), milliseconds: millisecondsToLive || 60000 })
             };
 
-            return getData;
+            try {
+                const data = await getData;
+
+                return data;
+            }
+            catch (error) {
+                this.data[key] = undefined;
+                throw error;
+            }
         };
         const useCachedResult = cachedResult
             && !forceRefresh

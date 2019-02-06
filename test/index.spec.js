@@ -1,11 +1,39 @@
 import { Cache } from '../src/index'
 
 const promiseToResolve = theData => new Promise(resolve => setTimeout(() => resolve(theData), 1));
+const promiseToReject = theData => new Promise((resolve, reject) => setTimeout(() => reject(theData), 1));
 
 describe("Cache", () => {
     it("should return data from the source", async () => {
         var dataSource = () => promiseToResolve("the data");
         expect(await new Cache().get({ dataSource })).toBe("the data");
+    });
+
+    it("should not cache rejected promises (errors)", async () => {
+        let callCount = 0;
+        const theError = new Error("The error...");
+        let successfullDataSource = () => {
+            callCount++;
+
+            return promiseToResolve("the data");
+        };
+        let failedDataSource = () => {
+            callCount++;
+
+            return promiseToReject(theError);
+        };
+        let cache = new Cache();
+
+        let receivedError = undefined;
+        try {
+            await cache.get({ dataSource: failedDataSource, key: "key 1" });
+        }
+        catch (error) {
+            receivedError = error;
+        }
+        expect(receivedError).toBe(theError);
+        expect(await cache.get({ dataSource: successfullDataSource, key: "key 1" })).toBe("the data");
+        expect(callCount).toBe(2);
     });
 
     it("should only request once per key", async () => {
