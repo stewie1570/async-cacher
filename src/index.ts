@@ -1,19 +1,29 @@
+type Request = {
+    dataSource: () => Promise<object> | object,
+    key?: string,
+    millisecondsToLive?: number,
+    forceRefresh?: boolean
+};
+
 export class Cache {
-    constructor(config) {
+    data: { [key: string]: any };
+    timeProvider: any;
+
+    constructor(config?: any) {
         this.data = [];
         this.timeProvider = (config && config.timeProvider) || (() => new Date());
     }
 
-    get({ dataSource, key, millisecondsToLive, forceRefresh }) {
-        var cachedResult = this.data[key];
-        var adjust = ({ time, milliseconds }) => {
+    get({ dataSource, key, millisecondsToLive, forceRefresh }: Request) {
+        const cachedResult = this.data[key || ""];
+        const adjust = ({ time, milliseconds }: { time: Date, milliseconds: number }) => {
             var newTime = new Date(time.valueOf());
             newTime.setMilliseconds(milliseconds);
             return newTime;
         };
-        var getFromDataSource = async () => {
+        const getFromDataSource = async () => {
             var getData = dataSource();
-            this.data[key] = {
+            this.data[key || ""] = {
                 getData,
                 expiration: adjust({ time: this.timeProvider(), milliseconds: millisecondsToLive || 60000 })
             };
@@ -24,7 +34,7 @@ export class Cache {
                 return data;
             }
             catch (error) {
-                this.data[key] = undefined;
+                this.data[key || ""] = undefined;
                 throw error;
             }
         };
@@ -35,7 +45,7 @@ export class Cache {
         return useCachedResult ? cachedResult.getData : getFromDataSource();
     }
 
-    clear({ key }) {
+    clear({ key }: { key: string }) {
         this.data[key] = undefined;
     }
 }

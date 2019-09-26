@@ -1,7 +1,7 @@
-import { Cache } from '../src/index'
+import { Cache } from '.'
 
-const promiseToResolve = theData => new Promise(resolve => setTimeout(() => resolve(theData), 1));
-const promiseToReject = theData => new Promise((resolve, reject) => setTimeout(() => reject(theData), 1));
+const promiseToResolve = (theData: any) => new Promise(resolve => setTimeout(() => resolve(theData), 1));
+const promiseToReject = (theData: any) => new Promise((resolve, reject) => setTimeout(() => reject(theData), 1));
 
 describe("Cache", () => {
     it("should return data from the source", async () => {

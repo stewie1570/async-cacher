@@ -8,11 +8,11 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --modulePathIgnorePatterns=build/",
     "tdd": "jest --watch",
-    "build": "npm run test && webpack",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run build"
+    "build": "yarn run test && del-cli ./build && tsc",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn run build"
   },
   "keywords": [
     "async",
@@ -21,22 +21,17 @@
   "author": "Stewart Anderson",
   "license": "GPL-3.0",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-jest": "^22.4.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "jest": "^22.4.3",
-    "regenerator-runtime": "^0.11.1",
-    "webpack": "^3.11.0"
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/jest": "^24.0.18",
+    "babel-jest": "^24.9.0",
+    "del-cli": "^3.0.0",
+    "jest": "^24.9.0",
+    "typescript": "^3.6.3"
   },
-  "dependencies": {
-    "babel-runtime": "^6.26.0"
-  },
+  "dependencies": {},
   "files": [
     "build"
-  ],
-  "jest": {
-    "testURL": "http://localhost"
-  }
+  ]
 }
