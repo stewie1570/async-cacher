@@ -6,11 +6,11 @@
     "type": "git",
     "url": "https://github.com/stewie1570/async-cacher"
   },
-  "main": "build/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "jest --coverage --modulePathIgnorePatterns=build/",
+    "test": "jest --coverage --modulePathIgnorePatterns=lib/",
     "tdd": "jest --watch",
-    "build": "yarn run test && del-cli ./build && tsc",
+    "build": "yarn run test && del-cli ./lib && tsc",
     "prepublishOnly": "yarn run build"
   },
   "keywords": [
@@ -31,6 +31,6 @@
   },
   "dependencies": {},
   "files": [
-    "build"
+    "lib"
   ]
 }
