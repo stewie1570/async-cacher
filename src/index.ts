@@ -15,7 +15,8 @@ export class Cache {
     }
 
     get({ dataSource, key, millisecondsToLive, forceRefresh }: Request) {
-        const cachedResult = this.data[key || ""];
+        const theKey = key || "";
+        const cachedResult = this.data[theKey];
         const adjust = ({ time, milliseconds }: { time: Date, milliseconds: number }) => {
             var newTime = new Date(time.valueOf());
             newTime.setMilliseconds(milliseconds);
@@ -23,7 +24,7 @@ export class Cache {
         };
         const getFromDataSource = async () => {
             var getData = dataSource();
-            this.data[key || ""] = {
+            this.data[theKey] = {
                 getData,
                 expiration: adjust({ time: this.timeProvider(), milliseconds: millisecondsToLive || 60000 })
             };
@@ -34,7 +35,7 @@ export class Cache {
                 return data;
             }
             catch (error) {
-                this.data[key || ""] = undefined;
+                this.data[theKey] = undefined;
                 throw error;
             }
         };
