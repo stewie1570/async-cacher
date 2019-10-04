@@ -8,10 +8,12 @@ type Request = {
 export class Cache {
     data: { [key: string]: any };
     timeProvider: any;
+    logger: (log: string) => void;
 
     constructor(config?: any) {
         this.data = [];
         this.timeProvider = (config && config.timeProvider) || (() => new Date());
+        this.logger = (config && config.logger) || (() => { });
     }
 
     get({ dataSource, key, millisecondsToLive, forceRefresh }: Request) {
@@ -39,6 +41,14 @@ export class Cache {
                 throw error;
             }
         };
+
+        Object.keys(this.data).forEach(key => {
+            if (this.data[key] && this.timeProvider() >= this.data[key].expiration) {
+                delete this.data[key];
+                this.logger(`deleted "${key}"`);
+            }
+        })
+
         const useCachedResult = cachedResult
             && !forceRefresh
             && this.timeProvider() < cachedResult.expiration;

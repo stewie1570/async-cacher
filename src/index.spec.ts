@@ -125,6 +125,25 @@ describe("Cache", () => {
         expect(callCount).toBe(2);
     });
 
+    it("should delete expired keys", async () => {
+        var callCount = 0;
+        let logs = [];
+        var dataSource = () => {
+            callCount++;
+
+            return promiseToResolve(`the data${callCount}`);
+        };
+        var currentTime = new Date("01/01/2000 12:00 am");
+        var cache = new Cache({ timeProvider: () => currentTime, logger: log => logs.push(log) });
+
+        await cache.get({ dataSource, key: "key 1", millisecondsToLive: 1000 });
+        currentTime = new Date("01/01/2000 12:00:01 am");
+        await cache.get({ dataSource, key: "key 1" });
+        expect(logs).toEqual([
+            'deleted "key 1"'
+        ]);
+    });
+
     it("should not make another request while another request for the same key is in-flight", async () => {
         var callCount = 0;
         var dataSource = () => {
