@@ -2,3 +2,5 @@ language: node_js
 node_js:
   - "8"
 sudo: false
+script:
+  - if [ "$TRAVIS_BRANCH" == "deploy" ]; then yarn test && npm publish; else yarn test && yarn build; fi
