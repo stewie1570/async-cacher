@@ -1,6 +1,17 @@
 language: node_js
 node_js:
-  - "8"
-sudo: false
-script:
-  - if [ "$TRAVIS_BRANCH" == "deploy" ]; then yarn test && npm publish; else yarn build; fi
+- "9"
+
+jobs:
+  include:
+    - stage: Test
+    script: npm build
+    - stage: Publish
+    script: npm publish
+    deploy:
+      provider: npm
+      email: '$NPM_EMAIL'
+      api_key: '$NPM_TOKEN'
+      skip_cleanup: true
+      on:
+        tags: true
