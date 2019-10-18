@@ -18,6 +18,3 @@ jobs:
         skip_cleanup: true
         on:
           tags: true
-branches:
-  only:
-    - master
