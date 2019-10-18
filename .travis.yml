@@ -1,9 +1,17 @@
 language: node_js
+
 node_js:
   - '8'
+  
 cache: yarn
+
+
 install:
   - yarn install
+
+scripts:
+  - npm install codecov -g
+
 deploy:
   provider: npm
   email: '$NPM_EMAIL'
@@ -12,3 +20,6 @@ deploy:
   on:
     tags: true
     all_branches: true
+
+after_success:
+  - codecov
