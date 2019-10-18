@@ -8,7 +8,6 @@ jobs:
   include:
     - stage: Test
     - stage: Publish
-      script: yarn build
       deploy:
         provider: npm
         email: '$NPM_EMAIL'
