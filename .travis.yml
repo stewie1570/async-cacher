@@ -5,12 +5,10 @@ node_js:
   
 cache: yarn
 
-
 install:
   - yarn install
 
-scripts:
-  - npm install codecov -g
+script: npm install codecov -g
 
 deploy:
   provider: npm
