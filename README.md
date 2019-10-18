@@ -8,7 +8,7 @@ Use Cases:
  - Prevent simultaneous in-flight calls on the same key.
     - (For example, say it takes one second to resovle a data request but there were 10 requests for data on the same key within that second. This would result in one request for that data and it would be resolved for all 10 requests. The request would be issued immediately on the first of the 10 requests)
 
-This tool allows for you too:
+Allows for:
  - Control TTL of cache key/value 
  - Control scope of cache key/values
 
