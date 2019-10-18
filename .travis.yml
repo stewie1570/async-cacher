@@ -1,17 +1,23 @@
 language: node_js
 node_js:
-- "9"
-
+  - '8'
+cache: yarn
+install:
+  - yarn install
 jobs:
   include:
     - stage: Test
-    script: npm build
+      script:
+        - yarn build
     - stage: Publish
-    script: npm publish
-    deploy:
-      provider: npm
-      email: '$NPM_EMAIL'
-      api_key: '$NPM_TOKEN'
-      skip_cleanup: true
-      on:
-        tags: true
+      script: yarn build
+      deploy:
+        provider: npm
+        email: '$NPM_EMAIL'
+        api_key: '$NPM_TOKEN'
+        skip_cleanup: true
+        on:
+          tags: true
+branches:
+  only:
+    - master
