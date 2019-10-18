@@ -1,8 +1,8 @@
 # async-cacher
 
 [![Build](https://travis-ci.org/stewie1570/async-cacher.svg)](https://travis-ci.org/stewie1570/async-cacher)
-[![npm version](https://badge.fury.io/js/async-cacher.svg)](https://badge.fury.io/js/async-cacher)
 [![Codecov](https://img.shields.io/codecov/c/github/stewie1570/async-cacher)](https://codecov.io/gh/stewie1570/async-cacher)
+[![npm version](https://badge.fury.io/js/async-cacher.svg)](https://badge.fury.io/js/async-cacher)
 
 Use Cases:
  - Prevent requests for data that is already available in the cache (obviously)
