@@ -36,6 +36,36 @@ describe("Cache", () => {
         expect(callCount).toBe(2);
     });
 
+    it("should not cache two concurrent rejected promises", async () => {
+        let callCount = 0;
+        const theError = new Error("The error...");
+        let successfullDataSource = () => {
+            callCount++;
+
+            return promiseToResolve("the data");
+        };
+        let failedDataSource = () => {
+            callCount++;
+
+            return promiseToReject(theError);
+        };
+        let cache = new Cache();
+
+        let receivedError = undefined;
+        try {
+            await Promise.all([
+                cache.get({ dataSource: failedDataSource, key: "key 1" }),
+                cache.get({ dataSource: failedDataSource, key: "key 1" })
+            ]);
+        }
+        catch (error) {
+            receivedError = error;
+        }
+        expect(receivedError).toBe(theError);
+        expect(await cache.get({ dataSource: successfullDataSource, key: "key 1" })).toBe("the data");
+        expect(callCount).toBe(2);
+    });
+
     it("should only request once per key", async () => {
         var callCount = 0;
         var dataSource = () => {
