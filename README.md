@@ -1,8 +1,9 @@
 # async-cacher
 
 [![Build](https://travis-ci.org/stewie1570/async-cacher.svg)](https://travis-ci.org/stewie1570/async-cacher)
-[![Codecov](https://img.shields.io/codecov/c/github/stewie1570/async-cacher)](https://codecov.io/gh/stewie1570/async-cacher)
+[![Coverage Status](https://coveralls.io/repos/github/stewie1570/async-cacher/badge.svg?branch=master)](https://coveralls.io/github/stewie1570/async-cacher?branch=master)
 [![npm version](https://badge.fury.io/js/async-cacher.svg)](https://badge.fury.io/js/async-cacher)
+[![Package Size](https://badgen.net/bundlephobia/minzip/async-cacher)](https://bundlephobia.com/result?p=async-cacher)
 
 Use Cases:
  - Prevent requests for data that is already available in the cache (obviously)
