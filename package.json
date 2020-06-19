@@ -1,6 +1,6 @@
 {
   "name": "async-cacher",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "description": "Cache async data sources.",
   "repository": {
     "type": "git",
