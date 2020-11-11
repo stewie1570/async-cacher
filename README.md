@@ -1,6 +1,6 @@
 # async-cacher
 
-[![Build](https://travis-ci.org/stewie1570/async-cacher.svg)](https://travis-ci.org/stewie1570/async-cacher)
+[![Build](https://github.com/stewie1570/async-cacher/workflows/Build/badge.svg)](https://github.com/stewie1570/async-cacher/actions)
 [![Coverage Status](https://coveralls.io/repos/github/stewie1570/async-cacher/badge.svg?branch=master)](https://coveralls.io/github/stewie1570/async-cacher?branch=master)
 [![npm version](https://badge.fury.io/js/async-cacher.svg)](https://badge.fury.io/js/async-cacher)
 [![Package Size](https://badgen.net/bundlephobia/minzip/async-cacher)](https://bundlephobia.com/result?p=async-cacher)
